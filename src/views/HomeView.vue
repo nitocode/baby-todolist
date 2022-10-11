@@ -2,64 +2,10 @@
 import { computed, ref } from "vue";
 import draggable from "vuedraggable";
 import TodoElement from "./../components/TodoElement.vue";
+import { useTodos } from "./../stores/todos";
 // import nestedDraggable from "./components/Nested.vue";
 const drag = ref<boolean>(false);
-// const daddyList = ref<Array<{ name: string; id: number; order: number }>>([]);
-const daddyList = ref<any>([]);
-daddyList.value = [
-  {
-    name: "Rentrer",
-    id: 1,
-    order: 1,
-    checked: false,
-    tasks: [
-      {
-        name: "Livret de famille",
-        id: 2,
-        order: 1,
-        checked: false,
-      },
-      {
-        name: "Documents échographies",
-        id: 3,
-        order: 2,
-        checked: false,
-      },
-      {
-        name: "Carte d'identité Maman",
-        id: 4,
-        order: 3,
-        checked: false,
-      },
-    ],
-  },
-  {
-    name: "Soutenir",
-    id: 5,
-    order: 2,
-    checked: false,
-    tasks: [
-      {
-        name: "Stylo",
-        id: 6,
-        order: 1,
-        checked: false,
-      },
-      {
-        name: "Sac à main Maman",
-        id: 7,
-        order: 2,
-        checked: true,
-      },
-      {
-        name: "Portable Maman",
-        id: 8,
-        order: 3,
-        checked: false,
-      },
-    ],
-  },
-];
+const todoStore = useTodos();
 
 const dragOptions = computed(() => {
   return {
@@ -83,7 +29,7 @@ const deleteElement = (id: number) => {
       <draggable
         class="list-group"
         tag="ul"
-        v-model="daddyList"
+        v-model="todoStore.daddyTodo"
         v-bind="dragOptions"
         handle=".handle"
         @start="drag = true"
